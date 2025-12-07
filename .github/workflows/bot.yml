@@ -1,0 +1,40 @@
+name: Telegram Bot 24x7 (15 Sessions)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    strategy:
+      max-parallel: 1
+      matrix:
+        session: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Telegram bot (session ${{ matrix.session }})
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: |
+          echo "===== Starting bot session ${{ matrix.session }} ====="
+          while true; do
+            python ra.py
+            EXIT_CODE=$?
+            echo "Bot exited with code $EXIT_CODE. Restarting in 5 seconds..."
+            sleep 5
+          done
+          
