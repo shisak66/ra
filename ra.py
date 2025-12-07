@@ -14,7 +14,7 @@ import requests
 from sseclient import SSEClient
 
 # ---------------- CONFIG ----------------
-BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+BOT_TOKEN = os.environ.get("7412885060:AAGKdkQBi50QOG3ejeFDdzjPmmt_KunwchM", "").strip()
 if not BOT_TOKEN:
     logging.warning("TELEGRAM_BOT_TOKEN not set in environment. Bot will not work until you set it.")
 API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}"
